@@ -4,7 +4,7 @@ $webClient = New-Object System.Net.WebClient
 $url = 'https://go.microsoft.com/fwlink/?linkid=2171764'
 $file = "$($dir)\Windows11InstallationAssistant.exe"
 
-#Create reg key to override requirements for existing devices
+#Create reg key to override requirements for Windows 11 for existing devices
 $path = 'HKLM:\SYSTEM\Setup\MoSetup'
 $key = 'AllowUpgradesWithUnsupportedTPMOrCPU'
 if (!(Test-Path $Path)) {New-Item $path -Force}
