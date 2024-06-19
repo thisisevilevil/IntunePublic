@@ -10,5 +10,5 @@ if (!(Test-Path $file)) {Write-host "Downloading Windows 11 Installation assista
 $webClient.DownloadFile($url,$file) 
 }
 
-#Start the Windows 11 Upgrade Assistant
+#Start the Windows 11 Upgrade Assistant silently
 Start-Process -FilePath $file -Wait -ArgumentList "/quietinstall /skipeula /auto upgrade"
