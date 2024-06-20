@@ -5,8 +5,8 @@ $url = 'https://go.microsoft.com/fwlink/?linkid=2171764'
 $file = "$($dir)\Windows11InstallationAssistant.exe"
 
 #Download Windows 11 Update assistant if it doesn't exist in C:\windows\temp
-if (!(Test-Path $file)) {Write-host "Downloading Windows 11 Installation assistant from the interwebz"} 
-{
+if (!(Test-Path $file)) {
+Write-host "Downloading Windows 11 Installation assistant from the interwebz"
 $webClient.DownloadFile($url,$file) 
 }
 
