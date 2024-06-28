@@ -1,4 +1,4 @@
-$path = 'HKLM:\SOFTWARE\Palo Alto Networks\GlobalProtect\Settings'
+$path = 'HKLM:\SOFTWARE\Palo Alto Networks\GlobalProtect\PanSetup'
 $name = 'PreLogon'
 
 $prelogon = Get-ItemPropertyValue -Path $path -Name $name

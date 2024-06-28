@@ -1,4 +1,4 @@
-$path = 'HKLM:\SOFTWARE\Palo Alto Networks\GlobalProtect\Settings'
+$path = 'HKLM:\SOFTWARE\Palo Alto Networks\GlobalProtect\PanSetup'
 $name = 'PreLogon'
 
 if (!(Test-Path $path)) {New-Item $path -Force}
