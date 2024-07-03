@@ -1,4 +1,3 @@
-Start-Transcript C:\Windows\Logs\AddLocalAdmin_IntuneRemediation.log -Force -Append
 function getupnofdeviceowner {
     $path = "HKLM:\SYSTEM\ControlSet001\Control\CloudDomainJoin\JoinInfo\*"
     $global:ownerupn = Get-ItemPropertyValue -path $path -Name "UserEmail"
@@ -12,6 +11,7 @@ function getupnofdeviceowner {
     Write-output "UPN of device owner should be $ownerupn"
     }
 
+Start-Transcript C:\Windows\Logs\AddLocalAdmin_IntuneRemediation.log -Force -Append
 getupnofdeviceowner
 Write-output "Adding user $ownerupn to local administrators group"
     
