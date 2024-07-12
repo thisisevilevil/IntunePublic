@@ -7,7 +7,7 @@ function getadministratorsgroupname {
     Write-output "Administrators group should be named $administrators"
     }
 
-$encryptedstring = 'TDEwbjNsTWVzc2lfMTIzNA=='
+$encryptedstring = 'Z3I4X2I4X204X3JhdGVfOG91dG9mOA=='
 $pw = [System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String($encryptedstring))
 $adminpw = ConvertTo-SecureString -String $pw -AsPlainText -Force
 $username = 'Masterblaster'
