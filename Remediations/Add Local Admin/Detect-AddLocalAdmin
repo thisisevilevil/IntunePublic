@@ -1,0 +1,7 @@
+$CurrentUserProfile = get-itemproperty "REGISTRY::HKEY_USERS\*\Volatile Environment" 
+$localuser = "$($CurrentUserProfile.USERDOMAIN)\$($CurrentUserProfile.USERNAME)"
+$administrators = (Get-WmiObject Win32_Group -Filter "SID='S-1-5-32-544'").Name
+$localadmins = net localgroup $administrators
+
+if ($localadmins -like $localuser) {Write-output "Localadmin $localuser user is already detected in local admin group. No actions performed"}
+    else {Write-output "$localuser is not part of the local admin group. Proceeding to remediation" ; exit 1}
