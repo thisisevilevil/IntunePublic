@@ -1,0 +1,1 @@
+shutdown -r -t 3600 -c "Your device needs to reboot within 1 hour to complete an update."
