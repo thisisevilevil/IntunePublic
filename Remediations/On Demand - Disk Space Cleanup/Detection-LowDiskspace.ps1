@@ -46,6 +46,6 @@ $freespacebytes = $Win32_LogicalDisk.Freespace
 $freespace = Convert-Size -From Bytes -To GB -Value $freespacebytes
 
 if ($freespace -lt $threshhold) {
-    Write-error "Low-Disk space detected. Available disk space is $freespace (GB). Returning error to console"
+    Write-output "Low Disk space detected. Available disk space is $freespace (GB). Returning error to console"
     exit 1
 }
