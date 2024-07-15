@@ -2,8 +2,7 @@
 <#
 This script will return the available disk space. If available disk space is below 20GB it will return an error to console and exit with error code 1
 
-Revision history
-1.0 dk8machj 23/01/2022: Initial release
+Mads Johansen / mcj@apento.com
 #>
 
 #Size in GB - When space drops below this amount, it will trigger a cleanup
