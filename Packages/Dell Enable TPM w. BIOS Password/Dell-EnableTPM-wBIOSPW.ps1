@@ -14,9 +14,11 @@ TEST-4444;8;Rolf_er_ren
 To deploy, package as Win32 app and use the following install string: 'Powershell.exe -ExecutionPolicy Bypass -File Dell-EnableTPM-wBIOSPW.ps1'
 For detection, use a custom detection script and add the one I made available in my public Intune repo: https://github.com/thisisevilevil/IntunePublic
 
-For a simpler non-Dell CCTK Version you can just use Get-TPM with PowerShell to detect if it's present.
+For a simpler non-Dell Detection that doesn't rely on CCTK, you can also use Get-TPM with PowerShell to detect if it's present.
 
 Alternatively deploy with Proactive remediation, and you can place the biospwlist.ini file on a network share, blob storage or any location of your choosing. This might be a better alternative if your password file needs to change a lot.
+
+This script can also be used for setting other settings using CCTK, when unique passwords pr. device is used, simply change the arguments in the start-process to fit your needs.
 
 Script author: Mads Johansen / mcj@apento.com
 
