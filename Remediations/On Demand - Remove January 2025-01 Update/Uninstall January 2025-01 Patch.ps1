@@ -1,3 +1,15 @@
+<#
+
+Script for removing the January 2025-01 update for Windows 11
+Cause: Webcam/Bluetooth might stop working on certain devices. 
+Reference: https://www.windowslatest.com/2025/01/26/windows-11-24h2-kb5050009-issues-break-audio-camera-kb5050021-affected-too/
+
+Can be used as an on-demand remediation or also as a one-off platform script. Inspiration: https://evil365.com/intune/FunWith-Remediations/
+
+Remember to adjust the reboot timer in the bottom of the script to suit your environment
+
+#>
+
 $build = (gcim win32_operatingsystem).BuildNumber
 
 if ($build -eq '26100') {
