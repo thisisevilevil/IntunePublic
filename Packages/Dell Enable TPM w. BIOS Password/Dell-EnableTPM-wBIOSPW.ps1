@@ -4,7 +4,7 @@ Password should be placed in biospwlist.ini file in the following format <comput
 
 The amount of characters in the computername starts counting from 0, not 1. This is important to note, as this logic is used to match the computername with the corresponding password.
 
-CCTK Logging isbe placed under C:\Windows\Logs\DellEnableTPM.log for diagnostics
+CCTK Logging will be placed under C:\Windows\Logs\DellEnableTPM.log for diagnostics
 
 Example: 
 TEST-535577;10;C00lP4$$w0rd
