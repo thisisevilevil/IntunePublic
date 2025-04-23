@@ -2,5 +2,5 @@
 
 $path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OOBE'
 New-ItemProperty -Path $path -Name 'SetupDisplayedEula' -PropertyType 'DWORD' -Value '1' -Force -Verbose
-Start-Sleep -Seconds 20
-Get-Scheduledtask *TPM-Maintenance* | Start-ScheduledTask -Verbose
+Start-ScheduledTask -TaskName 'Microsoft\Windows\Platform\TpmMaintenance' -Verbose
+Start-Sleep -Seconds 10
