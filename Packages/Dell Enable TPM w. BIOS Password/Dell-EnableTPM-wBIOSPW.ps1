@@ -38,12 +38,13 @@ foreach ($line in $biospwlist)
     }
 }
 
-if (!($biospw)) {Write-host "No BIOS PW match found for $env:computername"}
-}
 
 biospwlookup
 $cctk = 'C:\Program Files\Dell\EndpointConfigure\X86_64\cctk.exe'
 if (!(Test-path $cctk)) {Write-output "Dell CCTK is missing. Please install Dell Command | Endpoint Configure or Dell Command | Monitor to continue" ; exit 1}
+if (!($biospw)) {Write-host "No BIOS PW match found for $env:computername" ; exit 1}
+}
+
 
 if ($biospw) {Start-Process $cctk -Wait -ArgumentList "--tpm=on --ValSetupPwd=$biospw --logfile=C:\Windows\Logs\DellEnableTPM_wBIOSPW.log"}
     else {Start-Process $cctk -Wait -ArgumentList "--tpm=on --logfile=C:\Windows\Logs\DellEnableTPM.log"}
