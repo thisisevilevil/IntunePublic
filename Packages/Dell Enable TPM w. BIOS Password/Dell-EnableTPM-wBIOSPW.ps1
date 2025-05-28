@@ -4,7 +4,7 @@ Password should be placed in biospwlist.ini file in the following format <comput
 
 The amount of characters in the computername starts counting from 0, not 1. This is important to note, as this logic is used to match the computername with the corresponding password.
 
-CCTK Logging isbe placed under C:\Windows\Logs\DellEnableTPM.log for diagnostics
+CCTK Logging will be placed under C:\Windows\Logs\DellEnableTPM.log for diagnostics
 
 Example: 
 TEST-535577;10;C00lP4$$w0rd
@@ -24,6 +24,7 @@ Script author: Mads Johansen / mcj@apento.com
 
 #>
 
+#Define function for looping through ini file with BIOS Passwords matched with computer names
 function biospwlookup {
 #Loop on ini file based on devicename
 $biospwlist = gc "$PsScriptRoot\biospwlist.ini"
@@ -38,12 +39,74 @@ foreach ($line in $biospwlist)
     }
 }
 
-if (!($biospw)) {Write-host "No BIOS PW match found for $env:computername"}
-}
 
+#Check if any BIOS Passwords exists for the device
 biospwlookup
+
+#Validate pre-reqs to run script, otherwise we exit - NOTE: The CCTK binary is part of Dell Command | Endpoint Configure agent, you can download it from here: https://www.dell.com/support/kbdoc/en-us/000214308/dell-command-endpoint-configure-for-microsoft-intune
 $cctk = 'C:\Program Files\Dell\EndpointConfigure\X86_64\cctk.exe'
 if (!(Test-path $cctk)) {Write-output "Dell CCTK is missing. Please install Dell Command | Endpoint Configure or Dell Command | Monitor to continue" ; exit 1}
+if (!($biospw)) {Write-host "No BIOS PW match found for $env:computername" ; exit 1}
+}
 
+#--- Activate TPM for newer models ---
 if ($biospw) {Start-Process $cctk -Wait -ArgumentList "--tpm=on --ValSetupPwd=$biospw --logfile=C:\Windows\Logs\DellEnableTPM_wBIOSPW.log"}
     else {Start-Process $cctk -Wait -ArgumentList "--tpm=on --logfile=C:\Windows\Logs\DellEnableTPM.log"}
+
+
+# --- Activate TPM for older models, manually add more as required, from line 93 and onwards (Consider replacing them instead, if possible) ---
+function enableandactivatetpm {
+# --- CONFIGURATION ---
+$NewBIOSPassword = "evil365"  # Only used temporarily for TPM Activation reasons, changed as desired - Will be removed at a later stage
+$ExportPath = "C:\Temp\DellTPMEnable.ini"
+
+# --- SETUP ---
+if (!(Test-Path $ExportPath)) {
+    New-Item -Path (Split-Path $ExportPath) -ItemType Directory -Force
+}
+
+# Step 1: Set BIOS password (if not already set)
+Set-Location $cctk
+# Check if password is already set (returns errorlevel 0 if set)
+$pwdCheck = & .\cctk.exe --setuppwd
+if ($pwdCheck -eq 0) {
+    Write-Output "BIOS password already set. Skipping password setup."
+} else {
+    & .\cctk.exe --setuppwd=$NewBIOSPassword
+    Write-Output "BIOS password has been set."
+}
+
+# Step 2: Write TPM configuration to .ini
+$TPMConfig = @"
+[tpm]
+tpm = enable
+tpmactivation = activate
+"@
+$TPMConfig | Out-File -Encoding ascii -FilePath $ExportPath
+
+# Step 3: Apply TPM config with password
+Start-Process $cctk -Wait -ArgumentList "--import=$ExportPath --setuppwd=$NewBIOSPassword"
+exit
+}
+
+
+#Enable and activate TPM for Latitude 7290's
+if ($model -eq 'Latitude 7290') {
+    Write-output "Latitude 7290 Detected. Enabling and activating TPM"
+    enableandactivatetpm
+    exit
+    }
+
+#Enable and activate TPM for Latitude 7280's
+if ($model -eq 'Latitude 7280') {
+    Write-output "Latitude 7280 Detected. Enabling and activating TPM"
+    enableandactivatetpm
+    exit
+    }
+
+#Enable and activate TPM for Latitude 5490's
+if ($model -eq 'Latitude 5490') {
+    Write-output "Latitude 5490 Detected. Enabling and activating TPM"
+    enableandactivatetpm
+    exit
+    }
