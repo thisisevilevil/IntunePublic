@@ -1,12 +1,9 @@
-mountvol Y: /s
-
-#Get free disk space on EFI Partition
-
 #Set threshold in bytes (e.g., 50 MB)
 $thresholdBytes = 50MB
 
-#Define the drive letter to check
+#Mount the EFI Partition
 $driveLetter = "Y:"
+mountvol $driveLetter /s
 
 #Check if the drive exists
 if (-not (Test-Path $driveLetter)) {

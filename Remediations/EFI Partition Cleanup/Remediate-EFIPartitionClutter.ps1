@@ -1,10 +1,12 @@
-mountvol Y: /s
 $driveletter = 'Y:'
 $hpstaging = 'C:\HPStuff'
 
+#Mount to ESP
+mountvol $driveletter /s
+
 # Check if the drive exists
-if (-not (Test-Path Y:\)) {
-    Write-Error "Drive Y:\ not found."
+if (-not (Test-Path $driveletter\)) {
+    Write-Error "Drive $driveletter\ not found."
     exit 1
 }
 
@@ -14,23 +16,25 @@ $freeSpaceold = $driveInfo.AvailableFreeSpace
 
 Write-output "Free space before beginning: $freespaceold"
 
-if (!(Test-Path $hpstaging)) {New-Item $hpstaging -ItemType Directory}
-
-if (Test-Path Y:\EFI\HP\DEVFW) {
+#Move HP Files if they exist
+if (Test-Path $driveletter\EFI\HP\DEVFW) {
+    if (!(Test-Path $hpstaging)) {New-Item $hpstaging -ItemType Directory}
     Write-output "DevFW folder located on EFI Partition.. moving this to $hpstaging"
-    Move-Item Y:\EFI\HP\DEVFW -Destination $hpstaging -Force
+    Move-Item $driveletter\EFI\HP\DEVFW -Destination $hpstaging -Force
     }
 
-if (Test-Path Y:\EFI\HP\Previous) {
+if (Test-Path $driveletter\EFI\HP\Previous) {
+    if (!(Test-Path $hpstaging)) {New-Item $hpstaging -ItemType Directory}
     Write-output "Old HP Firmware files located on EFI Partition.. proceeding to remediation.."
-    Move-Item Y:\EFI\HP\Previous -Destination $hpstaging -Force
+    Move-Item $driveletter\EFI\HP\Previous -Destination $hpstaging -Force
     }
 
 #Cleanup font files for good measure
-gci Y:\EFI\Microsoft\Boot\Fonts -Filter *.ttf | Remove-Item -Force
+gci $driveletter\EFI\Microsoft\Boot\Fonts -Filter *.ttf | Remove-Item -Force
 
 #New status
 $freeSpace = $driveInfo.AvailableFreeSpace
 Write-output "Free space before: $freespaceold --- Free space after cleanup: $freespace"
 
-mountvol Y: /d
+#Delete the mount point
+mountvol $driveletter /d
