@@ -38,6 +38,12 @@ gpt attributes=0x8000000000000001
 '@ | out-file -FilePath "C:\Windows\Logs\WinREFix\diskpart1.txt" -Encoding ASCII
 Diskpart /s C:\Windows\Logs\WinREFix\diskpart1.txt >> C:\Windows\Logs\WinREFix\DiskpartWinReFix.log
 
+if (!(Test-path Q:\)) {
+    Write-output "Q:\ is not accessible.. partition shrinking or creation may have failed."
+    exit 1
+}
+
+
 #Adding a timeout of 15 seconds as pr. recommendation from Microsoft as we are not able to run diskpart scripts in quick succession
 Start-Sleep -Seconds 15
 
