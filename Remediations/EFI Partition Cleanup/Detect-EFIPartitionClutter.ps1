@@ -18,11 +18,11 @@ $freeSpace = $driveInfo.AvailableFreeSpace
 #Report results
 if ($freeSpace -lt $thresholdBytes) {
     Write-Output "Low disk space on $driveLetter. Free: $([math]::Round($freeSpace / 1MB, 2)) MB"
-    mountvol Y: /d
+    mountvol $driveLetter /d
     exit 1
 } else {
     Write-Output "$driveLetter has sufficient free space: $([math]::Round($freeSpace / 1MB, 2)) MB"
-    mountvol Y: /d
+    mountvol $driveLetter /d
     exit
 }
 
