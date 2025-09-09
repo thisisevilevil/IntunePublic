@@ -1,4 +1,4 @@
-# Check if Secure Boot UEFI database contains 'Windows UEFI CA 2023'
+# Check if Secure Boot UEFI database contains 'Windows UEFI CA 2023' - https://evil365.com/intune/SecureBoot-Cert-Expiration/
 $match = [System.Text.Encoding]::ASCII.GetString((Get-SecureBootUEFI db).bytes) -match 'Windows UEFI CA 2023'
 
 if ($match) {
