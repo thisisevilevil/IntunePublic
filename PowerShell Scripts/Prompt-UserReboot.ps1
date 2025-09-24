@@ -23,7 +23,7 @@ public static class User32 {
 "@
 
 # --- Configurable bits ---
-$LogoUrl     = 'https://static.wikia.nocookie.net/mobius-paradox/images/4/4e/Th.jpg'
+$LogoUrl     = 'https://github.com/thisisevilevil/IntunePublic/blob/main/Just%20stuff/ACME_Corporation.png?raw=true'
 $WaitMinutes = 10
 $Message     = "We are currently finishing the installation of required apps and policies. Please wait a few minutes. When we are finished we will prompt you to reboot the device."
 $WindowTitle = "Setting up your device"
