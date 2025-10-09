@@ -87,13 +87,17 @@ If ($smbiosHex.Contains('24-41-4D-54')) {
         If ($majVer -lt 16) {
             Write-Host -ForegroundColor Yellow "Intel(R) vPro platform".PadRight(40,'.')"`b: $false"
             Write-Host -ForegroundColor Yellow "Intel(R) ME SKU".PadRight(40,'.')"`b: $skuStr"
-            Write-output "Intel(R) vPro platform".PadRight(40,'.')"`b: $false" # Added for Intune Remediation management purposes. //Mads Johansen            
+            
+            # Added for Intune Remediation management purposes. //Mads Johansen 
+            Write-output "Intel(R) vPro platform".PadRight(40,'.')"`b: $false"            
             exit 1
         }
     } ElseIf (!($skuInt -band 8)) { # not Intel(R) Full AMT Manageability
         Write-Host -ForegroundColor Yellow "Intel(R) vPro platform".PadRight(40,'.')"`b: $false"
         Write-Host -ForegroundColor Yellow "Intel(R) ME SKU".PadRight(40,'.')"`b: $skuStr"
-        Write-output "Intel(R) vPro platform".PadRight(40,'.')"`b: $false" # Added for Intune Remediation management purposes. //Mads Johansen   
+        
+        # Added for Intune Remediation management purposes. //Mads Johansen  
+        Write-output "Intel(R) vPro platform".PadRight(40,'.')"`b: $false"  
         exit 1 
     }
 
