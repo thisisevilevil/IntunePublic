@@ -87,12 +87,12 @@ If ($smbiosHex.Contains('24-41-4D-54')) {
         If ($majVer -lt 16) {
             Write-Host -ForegroundColor Yellow "Intel(R) vPro platform".PadRight(40,'.')"`b: $false"
             Write-Host -ForegroundColor Yellow "Intel(R) ME SKU".PadRight(40,'.')"`b: $skuStr"            
-            exit
+            exit 1
         }
     } ElseIf (!($skuInt -band 8)) { # not Intel(R) Full AMT Manageability
         Write-Host -ForegroundColor Yellow "Intel(R) vPro platform".PadRight(40,'.')"`b: $false"
         Write-Host -ForegroundColor Yellow "Intel(R) ME SKU".PadRight(40,'.')"`b: $skuStr"
-        exit
+        exit 1
     }
 
     # Report results ############################################################################## 
