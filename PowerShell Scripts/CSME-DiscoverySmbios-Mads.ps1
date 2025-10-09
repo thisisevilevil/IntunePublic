@@ -104,7 +104,7 @@ If ($smbiosHex.Contains('24-41-4D-54')) {
     Write-Host -ForegroundColor Green "Intel(R) ME enabled".PadRight(40,'.')"`b: $meEnabled"
     Write-Host -ForegroundColor Green "Intel(R) ME SKU".PadRight(40,'.')"`b: $skuStr"
     
-    #Write-output 1 to Intune for Win32 app management //Mads Johansen
+    # Write-output 1 to Intune for Win32 app management //Mads Johansen
     Write-output "1"
 
 } Else { # $AMT signature not found in SMBIOS data
