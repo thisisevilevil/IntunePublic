@@ -1,8 +1,8 @@
 #Deploys a registry key to enable Microsoft Update managed Secure Boot key opt-in
-#reference: https://support.microsoft.com/en-us/topic/windows-devices-for-businesses-and-organizations-with-it-managed-updates-e2b43f9f-b424-42df-bc6a-8476db65ab2f
-$Path  = 'HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot'
+#reference: https://support.microsoft.com/en-us/topic/registry-key-updates-for-secure-boot-windows-devices-with-it-managed-updates-a7be69c9-4634-42e1-9ca1-df06f43f360d
+$Path  = 'HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\Servicing'
 $Name  = 'MicrosoftUpdateManagedOptIn'
-$Value = 0x5944  # 22852 decimal
+$Value = '1'
 
 if (!(Test-Path $Path)) {New-Item -Path $Path -Force}
 New-ItemProperty -Path $Path -Name $Name -PropertyType DWord -Value $Value -Force
