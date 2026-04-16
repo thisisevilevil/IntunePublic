@@ -1,4 +1,4 @@
-Start-Transcript C:\Logs\AddLocalAdmin_Developer.log -Force -Append
+Start-Transcript C:\Logs\PrimaryUser_RemoveLocalAdmin.log -Force -Append
 function getupnofdeviceowner {
     $path = "HKLM:\SYSTEM\ControlSet001\Control\CloudDomainJoin\JoinInfo\*"
     $global:ownerupn = Get-ItemPropertyValue -path $path -Name "UserEmail"
