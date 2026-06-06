@@ -1,0 +1,1 @@
+Get-ChildItem "C:\Windows\System32\config\systemprofile\AppData\Local\mdm" -Force -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
